@@ -11,6 +11,6 @@ var myname="Angshu"
 if(myname==myname){
     console.log("This is true");
 }//This works Perfectly
-if(myname==window.myname){
+if(myname==myname){
     console.log("This is true");
 }//Throws an error in desktop because window is only present in global context un browser
