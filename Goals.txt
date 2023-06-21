@@ -1,0 +1,12 @@
+
+Till I am 35
+
+Js -------mAstery
+Spring & Spring boot
+Go
+Django
+AWS--------------mAstery
+Parallel Concurency And Dsitributed Systems
+mysql postgresql mongodb
+System Design
+DEvops--------Docker Ansible jenkins prometheus Networking CI/CD automation ,linux os (erricsos)

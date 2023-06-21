@@ -90,18 +90,26 @@ function handleFirstRequest(req,res){
 //    var counter=req.headers.counter
 var counter=req.body.counter
 
-if(counter<10000){
-    var CalculatedSum=CalculateSum(counter);
-    var Multiplied= Mul(counter);
+// if(counter<10000){
+//     var CalculatedSum=CalculateSum(counter);
+//     var Multiplied= Mul(counter);
 
-    var answer={
-        sum: CalculatedSum,
-        mul: Multiplied,
-    };
-    res.send(answer)
-   }
-   else
-    res.status(411).send("You have send very big number");
+//     var answer={
+//         sum: CalculatedSum,
+//         mul: Multiplied,
+//     };
+//     res.send(answer)
+//    }
+//    else
+//     res.status(411).send("You have send very big number");
+var CalculatedSum=CalculateSum(counter);
+var Multiplied= Mul(counter);
+
+var answerobj={
+"sum":CalculatedSum,
+"mul":Multiplied
+};
+res.send(answerobj);// we can also use res.json which ensures we send a json object in re.send we can also send plain text
 }
 function SecondRequest(req,res){
     var Multiplied= Mul(5);
@@ -109,9 +117,12 @@ function SecondRequest(req,res){
     //res.status(401).send(answer);//function curring
     res.send(answer)
 }
-
+function givepage(req,res){
+    res.sendFile(__dirname+"/html/index.html");
+}
 app.get('/handlesum',handleFirstRequest)
 app.post('/createuser',SecondRequest)
+app.get("/",givepage)
 function started(req,res){
     console.log(`Example app listening on port ${port}`)
 }
