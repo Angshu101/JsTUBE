@@ -10,41 +10,6 @@
 
 // javascript
 
-// const express = require('express');
-// const app = express();
-
-// // Middleware function
-// const logger = (req, res, next) => {
-//   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-//   next(); // Call the next middleware function
-// };
-
-// // Register the middleware globally
-// app.use(logger);
-
-// // Route handler
-// app.get('/', (req, res) => {
-//   res.send('Hello, World!');
-// });
-
-// app.listen(3000, () => {
-//   console.log('Server started on port 3000');
-// });
-
-// In the above example, we define a middleware function called logger that logs the timestamp, HTTP method, and URL of each incoming request. The next parameter is a function that, when called, passes control to the next middleware function in the chain.
-
-// We register the logger middleware using app.use(logger). This ensures that every incoming request goes through the logger middleware before reaching the route handler.
-
-// Finally, we define a route handler for the root URL (/) that sends a "Hello, World!" response. When a request is made to the server, it first goes through the logger middleware, which logs the request details, and then the route handler is executed.
-
-// Middleware functions can be chained together by calling next() within each middleware function, allowing you to perform multiple operations on the request or response objects before sending a response back to the client.
-
-// Note that this is a simplified example to illustrate the concept of middleware in JavaScript. In real-world applications, middleware can be used for various purposes such as authentication, error handling, parsing request data, and more.
-
-
-
-
-
 
 const express = require('express')
 var bodyParser=require('body-parser')
