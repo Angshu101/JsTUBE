@@ -1,27 +1,43 @@
+import * as React from 'react';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { Typography } from '@mui/material';
 function Signup(){
     return <div>
-    <center>
+    
     <div style={{
-        marginTop:300,
-        marginBottom:50
-    }}>
-        <h1>Welcome To BuildXdev Courses</h1>
-    </div>
-    </center>
-      <center><div style={{
-        border:"2px solid black",
-        width:400,
+        padding:100,
+        marginBottom:0,
+        display:'flex',
+        justifyContent:'center',
+        height:0
 
+    }}>
+    <Typography variant={"h4"}>Welcome to Coursera</Typography>    
+    </div>
+    <div style={{
+      display:'flex',
+      justifyContent:'center',
+    }}>
+      <Card variant={"outlined"} style={{
+        width:400,
+        padding:20
       }}>
-      Username-<input type={'text'} ></input>
-      <br/>
-      Password-<input type={'password'}></input>
-      <br/>
-      <button>Signup</button>
+      <TextField 
+      id="filled-basic" 
+      label="email" 
+      variant="filled"
+      fullWidth={true} />
+      
+      <TextField id="filled-basic" label="password" variant="filled" type='password' fullWidth={true} />
+      <br/><br/>
+      <Button size={'large'} variant="contained">SignUP</Button>
+      </Card>
       </div>
-      </center>
     </div>
 
 }
-
 export default Signup
