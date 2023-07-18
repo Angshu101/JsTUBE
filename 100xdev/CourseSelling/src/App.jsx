@@ -3,20 +3,32 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import Signup from './Signup.jsx'
-import NavBar from './NavBar.jsx'
-
+import UpBar from './UpBar.jsx'
+import Signin from './Signin.jsx'
+import Course from './Course.jsx'
+import AddCourse from './AddCourse.jsx'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CourseDetails from './CourseDetails.jsx'
 
 function App() {
 
 
   return (
     <div style={{
-      height:"100vh",
+      height:"300vh",
       width:"100vm",
       backgroundColor:"#eeeeee"
     }}>
-     <NavBar></NavBar>
-      <Signup></Signup>
+    <Router>
+    <UpBar></UpBar>
+      <Routes>
+        <Route path='/AddCourse/:courseId' element={<CourseDetails/>}/>
+        <Route path='/AddCourse' element={<AddCourse/>}/>
+        <Route path='/Course' element={<Course/>}/>
+        <Route path="/login" element={<Signin/>}/>
+        <Route path="/signup" element={<Signup/>}/>
+      </Routes>
+    </Router>
     </div>
   )
 }

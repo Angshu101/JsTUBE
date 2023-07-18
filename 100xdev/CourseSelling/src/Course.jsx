@@ -4,9 +4,10 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { Typography } from '@mui/material';
 import {useState} from 'react'
-function Signup(){
-    const[email,setEmail]=useState("aa");
-    const[passwod,setPassword]=useState("");
+function Course() {
+    const[title,setTitle]=useState("");
+    const[description,setDescription]=useState("");
+    const[image,setImage]=useState("");
     return <div>
     <div style={{
         padding:100,
@@ -16,7 +17,7 @@ function Signup(){
         height:0
 
     }}>
-    <Typography variant={"h4"}>Welcome to Coursera</Typography>    
+    
     </div>
     <div style={{
       display:'flex',
@@ -28,22 +29,29 @@ function Signup(){
         
       }}>
       <TextField 
-      id="username" 
-      label="email" 
+      id="title" 
+      label="title" 
       variant="filled"
       fullWidth={true} 
         onChange={(e)=>{
-          setEmail(e.target.value);
+          setTitle(e.target.value);
         }}
       />
       
       <TextField 
-       id="password"
-       label="password" 
+       id="description"
+       label="description" 
        variant="filled" 
-       type='password' 
        onChange={(e)=>{
-          setPassword(e.target.value);
+          setDescription(e.target.value);
+       }}
+       fullWidth={true} />
+       <TextField 
+       id="imageLink"
+       label="imageLink" 
+       variant="filled" 
+       onChange={(e)=>{
+          setImage(e.target.value);
        }}
        fullWidth={true} />
       <br/><br/>
@@ -52,24 +60,27 @@ function Signup(){
         // let password=document.getElementById("password").value;
         // this is not the right way to grab the user data right way is to use custom hooks or state management
         
-        fetch("http://localhost:3000/admin/signup",{
+        fetch("http://localhost:3000/admin/courses",{
           method:"POST",
           body:JSON.stringify({
-            username:email,
-            password:passwod
+            title:title,
+            description:description,
+            price:100,
+            imageLink:image,
+            published:true
           }),
           headers:{
-            "Content-type":"application/json"
+            "Content-type":"application/json",
+            "Authorization":"Bearer "+localStorage.getItem("token")
           }
-        }).then(resp=>resp.json()).then(data=>{
+        }).then(resp => resp.json()).then(data =>{
+          alert("Course Added");
           console.log(data);
-          localStorage.setItem("token",data.token);
-          window.location="/course"
+          console.log("Bearer "+localStorage.getItem("token"))
         })
-      }}>SignUP</Button>
+      }}>Add Course</Button>
       </Card>
       </div>
     </div>
-
 }
-export default Signup
+export default Course
