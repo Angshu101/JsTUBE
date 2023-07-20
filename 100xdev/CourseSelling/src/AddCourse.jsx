@@ -31,7 +31,8 @@ function AddCourse() {
      
     </div>
 }
-export function Course(props) {
+ function Course(props) {
+    console.log("from exported function");
     return <Card style={{
         margin:10,
         width:300,

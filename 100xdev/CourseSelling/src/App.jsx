@@ -9,6 +9,9 @@ import Course from './Course.jsx'
 import AddCourse from './AddCourse.jsx'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import CourseDetails from './CourseDetails.jsx'
+import {
+  RecoilRoot
+} from 'recoil';
 
 function App() {
 
@@ -19,6 +22,7 @@ function App() {
       width:"100vm",
       backgroundColor:"#eeeeee"
     }}>
+    <RecoilRoot>
     <Router>
     <UpBar></UpBar>
       <Routes>
@@ -29,6 +33,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}/>
       </Routes>
     </Router>
+    </RecoilRoot>
     </div>
   )
 }

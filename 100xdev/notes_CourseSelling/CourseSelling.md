@@ -1,15 +1,21 @@
+![Image](/100xdev/notes_CourseSelling/Screenshot%20(30).png)
+
+# Details About the Project
+
+as you can see in the above picture whenever we are updating the details of the coursse there is rerendring happening  3 times which is bad we need better state management libraries like Redux recoil and zustand
+
+```js
 import { useState } from "react"
 import { useEffect } from "react"
 import { Card } from "@mui/material";
 import { Button, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { Course } from "./AddCourse";
 import TextField from '@mui/material/TextField';
-import { atom, useSetRecoilState } from "recoil";
 function CourseDetails() {
+   console.log("hi from CourseDetails");
     let {courseId} =useParams(); // useParamsHooks
-    // const [courses,setCourse]=useState([]);
-    // const [courses,setCourse]=useRecoilState([]);//even this would re render everything so we wont use this
-   const setCourse=useSetRecoilState(CoursesState)
+    const [courses,setCourse]=useState([]);
     useEffect(()=>{
         fetch("http://localhost:3000/admin/courses",{
             method:"GET",
@@ -25,49 +31,39 @@ function CourseDetails() {
     },[])
     //TODO:
     //proper approach would be to create a specific route for this function in the backend
+    let course=null;
+    for(let i=0;i<courses.length;i++){
+        if(courses[i].id == courseId){
+            course=courses[i];
+        }
+    }
+    if(!course){
+        return <div>
+            loading...
+        </div>
+    }
     return <div >
     <div style={{
         display:"flex",
         justifyContent:"center"
     }}>
-    <CourseCard courseId={courseId}/>
+    <Course course={course}/>
     </div>
     <div>
-     <UpdateCourse courseId={courseId}></UpdateCourse> 
+     <UpdateCourse course={course} courses={courses} setCourse={setCourse}></UpdateCourse> 
      {/* arguments send in this are array of course and state variables "courses "& "setCourses" */}
      </div>
     </div>
 }
 //TODO:
 //below function is getting repeated so its not implementing dry functionalities
-function CourseCard(props) {
-  const courses_s=useSetRecoilState(CoursesState);
-  let course=null;
-  for(let i=0;i<courses_s.length;i++){
-    if(courses_s[i].id==props.courseId){
-      course=courses_s[i]
-    }
-  }
-  console.log("from exported function");
-  return <Card style={{
-      margin:10,
-      width:300,
-      minHeight:200,
-      
-  }}>
-    <Typography textAlign={"center"} variant="h6">{course.title}</Typography>
-    <Typography textAlign={"center"} variant="h5">{course.description}</Typography>
-    <img src={course.imageLink} style={{width:300 ,minHeight:20}}></img>
-  </Card>
-  
-}
 function UpdateCourse(props) {
     console.log("hi from UpdateCourse");
     const[title,setTitle]=useState("");
     const[description,setDescription]=useState("");
     const[image,setImage]=useState("");
     const course=props.course;
-   const[courses,setCourses]=useSetRecoilState(CoursesState);
+    const courses=props.courses;
     return <div>
     <div style={{
         marginBottom:0,
@@ -139,9 +135,9 @@ function UpdateCourse(props) {
         //   console.log("Bearer "+localStorage.getItem("token"))
         let updatedCourse=[]
         for(let i=0;i<courses.length;i++){
-            if(courses[i].id == props.courseId){
+            if(courses[i].id == course.id){
                 updatedCourse.push({
-                    id:props.courseId,
+                    id:course.id,
                     title:title,
                     description:description,
                     price:100,
@@ -152,15 +148,13 @@ function UpdateCourse(props) {
                 updatedCourse.push(courses[i]);
             }
         }
-        setCourses(updatedCourse)
+        props.setCourse(updatedCourse)
         })
       }}>Update Course</Button>
       </Card>
       </div>
     </div>
 }
+
 export default CourseDetails
-const CoursesState = atom({
-  key: 'CoursesState', // unique ID (with respect to other atoms/selectors)
-  default: '', // default value (aka initial value)
-});
+```
