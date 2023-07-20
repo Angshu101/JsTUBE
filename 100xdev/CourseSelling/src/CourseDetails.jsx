@@ -4,8 +4,9 @@ import { Card } from "@mui/material";
 import { Button, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
-import { atom, useSetRecoilState } from "recoil";
+import { atom, useRecoilValue, useSetRecoilState ,useRecoilState} from "recoil";
 function CourseDetails() {
+    console.log("Hi from CourseDetals 1");
     let {courseId} =useParams(); // useParamsHooks
     // const [courses,setCourse]=useState([]);
     // const [courses,setCourse]=useRecoilState([]);//even this would re render everything so we wont use this
@@ -41,33 +42,33 @@ function CourseDetails() {
 //TODO:
 //below function is getting repeated so its not implementing dry functionalities
 function CourseCard(props) {
-  const courses_s=useSetRecoilState(CoursesState);
-  let course=null;
-  for(let i=0;i<courses_s.length;i++){
-    if(courses_s[i].id==props.courseId){
-      course=courses_s[i]
+  const courses=useRecoilValue(CoursesState);
+  var course=null;
+  for(let i=0;i<courses.length;i++){
+    if(courses[i].id==props.courseId){
+      course=courses[i]
     }
   }
-  console.log("from exported function");
+    console.log("course Card 2");
   return <Card style={{
       margin:10,
       width:300,
       minHeight:200,
       
   }}>
-    <Typography textAlign={"center"} variant="h6">{course.title}</Typography>
+    <Typography textAlign={"center"} variant="h6">{course.title}</Typography> 
     <Typography textAlign={"center"} variant="h5">{course.description}</Typography>
-    <img src={course.imageLink} style={{width:300 ,minHeight:20}}></img>
+    <img src={course.imageLink} style={{width:300 ,minHeight:20}}></img> 
   </Card>
   
 }
 function UpdateCourse(props) {
-    console.log("hi from UpdateCourse");
+    console.log("hi from UpdateCourse 3");
     const[title,setTitle]=useState("");
     const[description,setDescription]=useState("");
     const[image,setImage]=useState("");
-    const course=props.course;
-   const[courses,setCourses]=useSetRecoilState(CoursesState);
+    // const course=props.course;
+   const[courses,setCourses]=useRecoilState(CoursesState);
     return <div>
     <div style={{
         marginBottom:0,
@@ -119,7 +120,7 @@ function UpdateCourse(props) {
         // let password=document.getElementById("password").value;
         // this is not the right way to grab the user data right way is to use custom hooks or state management
         
-        fetch("http://localhost:3000/admin/courses/"+ course.id,{
+        fetch("http://localhost:3000/admin/courses/"+ props.courseId,{
           method:"PUT",
           body:JSON.stringify({
             title:title,
